@@ -39,12 +39,20 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - SignalHub - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div style="float:left">&copy; 2024 - SignalHub</div>
+            @if (ViewContext.RouteData.Values["controller"]?.ToString() == "Home"
+            && ViewContext.RouteData.Values["action"]?.ToString() == "Index") {
+                <span id="totalViews" style="float:right">Total Views : </span>
+                <span id="totalActiveUsers" style="float:right; margin-right: 10px">Total Active Users : </span>
+            }
         </div>
+
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
