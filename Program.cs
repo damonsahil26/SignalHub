@@ -45,6 +45,7 @@ app.MapHub<UserHub>("/hubs/totalviews");
 app.MapHub<DeathlyHallowsHub>("/hubs/deathlyhallows");
 app.MapHub<HogwartsHousesHub>("/hubs/hogwartshouses");
 app.MapHub<NotificationHub>("/hubs/notifications");
+app.MapHub<BasicChatHub>("/hubs/basicchat");
 
 app.MapRazorPages();
 

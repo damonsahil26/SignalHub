@@ -42,6 +42,11 @@ namespace SignalHub.Controllers
             return View();
         }
 
+        public IActionResult BasicChat()
+        {
+            return View();
+        }
+
         public IActionResult DeathlyHallowsRace(string? type)
         {
             if (type != null)
