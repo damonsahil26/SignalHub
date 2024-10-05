@@ -36,7 +36,12 @@ namespace SignalHub.Controllers
         {
             return View();
         }
-        
+
+        public IActionResult Notify()
+        {
+            return View();
+        }
+
         public IActionResult DeathlyHallowsRace(string? type)
         {
             if (type != null)
