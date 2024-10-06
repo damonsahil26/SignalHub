@@ -1,8 +1,12 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using SignalHub.Data;
 using SignalHub.Hubs;
 using SignalHub.Models;
+using SignalHub.Models.ViewModels;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace SignalHub.Controllers
 {
@@ -10,11 +14,15 @@ namespace SignalHub.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IHubContext<DeathlyHallowsHub> _deathlyHallowsHub;
+        private readonly ApplicationDbContext _dbContext;
 
-        public HomeController(ILogger<HomeController> logger, IHubContext<DeathlyHallowsHub> deathlyHallowsHub)
+        public HomeController(ILogger<HomeController> logger, 
+            IHubContext<DeathlyHallowsHub> deathlyHallowsHub,
+            ApplicationDbContext dbContext)
         {
             _logger = logger;
             _deathlyHallowsHub = deathlyHallowsHub;
+            _dbContext = dbContext;
         }
 
         public IActionResult Index()
@@ -45,6 +53,19 @@ namespace SignalHub.Controllers
         public IActionResult BasicChat()
         {
             return View();
+        }
+
+        [Authorize]
+        public IActionResult AdvanceChat()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var chatVm = new AdvanceChatVM
+            {
+                Rooms = _dbContext.ChatRooms.ToList(),
+                UserId = userId,
+                MaxRoomsAllowed = 4,
+            };
+            return View(chatVm);
         }
 
         public IActionResult DeathlyHallowsRace(string? type)

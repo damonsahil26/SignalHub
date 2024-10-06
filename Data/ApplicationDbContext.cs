@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using SignalHub.Models;
 
 namespace SignalHub.Data
 {
@@ -9,5 +10,7 @@ namespace SignalHub.Data
             : base(options)
         {
         }
+
+        public DbSet<ChatRoom> ChatRooms { get; set; }
     }
 }
